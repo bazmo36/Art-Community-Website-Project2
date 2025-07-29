@@ -1,0 +1,25 @@
+<h1><%= foundArtwork.title %></h1>
+<p><%= foundArtwork.description %></p>
+<p>By:<%= foundArtwork.artist.username %></p>
+<img src="<%= foundArtwork.imageUrl%>" alt="Artwork" width="400">
+
+<!-- Like Button -->
+ <form action="/artworks/<%= foundArtwork._id %>/like" method="POST">
+    <button type="submit">
+        <% if (foundArtwork.likes.includes(user._id)) { %>❤️ Unlike<% } else { %>🤍 Like<% } %>
+    </button>
+</form>
+
+<p><%= foundArtwork.likes.length %> Likes</p>
+
+<!-- Comments -->
+<h3>Comments:</h3>
+<% foundArtwork.comments.forEach(comment => { %>
+    <p><strong><%= comment.user.username %></strong>: <%= comment.content %></p>
+<% }) %>
+
+<form action="/artworks/<%= foundArtwork._id %>/comment" method="POST">
+    <textarea name="content" required></textarea>
+    <button type="submit">Add Comment</button>
+</form>
+
