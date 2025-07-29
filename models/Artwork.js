@@ -20,7 +20,7 @@ const artworkSchema = new mongoose.Schema({
         required: true
     },
 
-    collections: [String],
+    // collections: [String],
     
     artist: {
         type: mongoose.Schema.Types.ObjectId, 
