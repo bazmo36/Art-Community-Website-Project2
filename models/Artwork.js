@@ -1,17 +1,46 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
+
+const commentSchema = new mongoose.Schema({
+        user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+        content: String,
+        createdAt: { type: Date, default: Date.now }
+}, {timestamps:true})
+
 
 const artworkSchema = new mongoose.Schema({
-    userId:{
-      type: mongoose.Schema.Types.ObjectId,ref:'User'
+    title: {
+        type: String,
+        required: true
     },
-    tilte:{
-        type:String,
-        require:true
-    },
-    description:String,
-    imageUrl:String,
-    collections: [String],
-    likes:[{type: mongoose.Schema.Types.ObjectId,ref:'User'}]
-})
 
-module.exports = mongoose.model('Aetwork',artworkSchema)
+    description: String,
+
+    imageUrl: {
+        type: String,
+        required: true
+    },
+
+    collections: [String],
+    
+    artist: {
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "User", 
+        required: true
+    },
+  
+ 
+    likes: [
+        { type: mongoose.Schema.Types.ObjectId, ref: "User" }
+    ],
+
+
+    comments:[commentSchema], 
+
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
+});
+
+module.exports = mongoose.model("Artwork", artworkSchema);
+
