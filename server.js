@@ -11,7 +11,7 @@ const passUserToView = require('./middleware/passUserToView')
 const isSignedIn = require("./middleware/isSignedIn")
 const artworkRoutes = require("./routes/artworks.routes")
 
-
+const multer = require("multer");
 
 
 

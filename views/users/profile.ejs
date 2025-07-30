@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= user.username %>'s Profile</title>
+</head>
+<body>
+    <h1><%= user.username %>'s Profile</h1>
+
+    <img src="<%=user.profilePic%>" alt="Profile Picture" width="150"><br><br>
+    <p><strong>Email:</strong><%= user.email%></p>
+    <p><strong>Bio:</strong><%= user.bio || "No bio yet."%></p>
+    <p><strong>Followers</strong><%= user.followers.length%></p>
+    <p><strong>Following</strong><%=user.following.length</p>
+
+    <a href="/users/edit-profile">Edit Profile</a>
+    <a href="/auth/logote">Logout</a>
+
+    <hr>
+    <h2>Notifications</h2>
+    
+</body>
+</html>
