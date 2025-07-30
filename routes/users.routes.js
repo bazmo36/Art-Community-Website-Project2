@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User")
 const Artwork = require("../models/Artwork")
-const isSignedIn = require("../middleware/isSignedIn");
+const isSignedIn = require("../middleware/isSignedIn")
 const multer = require("multer")
 const upload = multer({ dest: 'uploads/' })
 
@@ -83,10 +83,10 @@ router.get("/profile", isSignedIn, async (req, res) => {
     res.render("users/profile", { user, artworks });
   } 
   catch (error) {
-    console.log("Error loading profile:", error);
-    res.redirect("/");
+    console.log("Error loading profile:", error)
+    res.redirect("/")
   }
-});
+})
 
 
 
