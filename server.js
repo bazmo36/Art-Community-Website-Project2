@@ -42,13 +42,13 @@ conntectToDB()
 
 
 
-app.use("/artworks",artworkRoutes)
+
 
 
 app.use("/auth",authRoutes)
 app.use(isSignedIn) //all your protected routes go below this middleware
 // Routes go here
-
+app.use("/artworks",artworkRoutes)
 
 
 

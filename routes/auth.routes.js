@@ -9,11 +9,13 @@ router.get("/sign-up", (req, res) => {
 
 router.post("/sign-up", async (req, res) => {
     try {
-        const { username, password } = req.body;
+        const { username, email, password } = req.body;
+
+        console.log('req.body', req.body)
 
         // VALIDATION
         //  Check if all the necessary fields are there
-        if (!username || !password) {
+        if (!username || !email ||!password) {
             return res.render("auth/sign-up", {
                 error: "All fields are required."
             });
@@ -46,6 +48,7 @@ router.post("/sign-up", async (req, res) => {
         const hashedPassword = bcrypt.hashSync(password, 10);
         const newUser = {
             username,
+            email,
             password: hashedPassword,
         };
 
