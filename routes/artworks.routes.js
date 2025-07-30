@@ -1,6 +1,5 @@
 const Artwork = require("../models/Artwork");
 const User = require("../models/User");
-
 const router = require("express").Router()
 
 
@@ -90,3 +89,4 @@ router.post("/:artworkId/like",async(req,res)=>{
     }
 })
 
+module.exports= router

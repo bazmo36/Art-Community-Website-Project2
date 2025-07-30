@@ -9,7 +9,7 @@ const authRoutes = require("./routes/auth.routes")
 const session = require("express-session")
 const passUserToView = require('./middleware/passUserToView')
 const isSignedIn = require("./middleware/isSignedIn")
-
+const artworkRoutes = require("./routes/artworks.routes")
 
 
 
@@ -42,7 +42,7 @@ conntectToDB()
 
 
 
-
+app.use("/artworks",artworkRoutes)
 
 
 app.use("/auth",authRoutes)
