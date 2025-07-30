@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    <h1>Welcome to Art Platform</h1>
+<% if (user) { %>
+    <p>Hello, <%= user.username %>!</p>
+    <a href="/users/profile">My Profile</a> |
+    <a href="/artworks">Explore Artworks</a> |
+    <a href="/auth/logout">Logout</a>
+<% } else { %>
+    <a href="/auth/login">Login</a> | 
+    <a href="/auth/sign-up">Sign Up</a>
+<% } %>
+
+
+</body>
+</html>

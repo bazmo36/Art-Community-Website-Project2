@@ -12,13 +12,16 @@
     <p><strong>Email:</strong><%= user.email%></p>
     <p><strong>Bio:</strong><%= user.bio || "No bio yet."%></p>
     <p><strong>Followers</strong><%= user.followers.length%></p>
-    <p><strong>Following</strong><%=user.following.length</p>
+    <p><strong>Following</strong><%= user.following.length %></p>
 
-    <a href="/users/edit-profile">Edit Profile</a>
-    <a href="/auth/logote">Logout</a>
 
     <hr>
-    <h2>Notifications</h2>
-    
+
+  <a href="/home">Homepage</a> |
+  <a href="/users/edit-profile">Edit Profile</a> |
+  <a href="/auth/logout">Logout</a>
+
+  <hr>
+
 </body>
 </html>
