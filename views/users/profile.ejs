@@ -24,10 +24,10 @@
   <hr>
 
    
-  <form action="/users/delete" method="POST" onsubmit="return confirm('Are you sure you want to delete your account? This cannot be undone.');">
-  <input type="hidden" name="_method" value="DELETE">
+  <form action="/users/delete?_method=DELETE" method="POST" onsubmit="return confirm('Are you sure you want to delete your account? This cannot be undone.');">
   <button type="submit" style="color: red;">Delete Account</button>
 </form>
+
 
 
 </body>

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const User = require("../models/User");
-// const upload = require("../middlewares/upload");
+const User = require("../models/User")
+const Artwork = require("../models/Artwork")
 const isSignedIn = require("../middleware/isSignedIn");
 const multer = require("multer")
 const upload = multer({ dest: 'uploads/' })
@@ -73,6 +73,21 @@ router.delete("/delete", isSignedIn, async (req, res) => {
     res.redirect("/users/profile");
   }
 });
+
+//My aerwork section
+router.get("/profile", isSignedIn, async (req, res) => {
+  try {
+    const user = await User.findById(req.session.user._id);
+    const artworks = await Artwork.find({ userId: req.session.user._id });
+
+    res.render("users/profile", { user, artworks });
+  } 
+  catch (error) {
+    console.log("Error loading profile:", error);
+    res.redirect("/");
+  }
+});
+
 
 
 
