@@ -15,12 +15,11 @@ const artworkSchema = new mongoose.Schema({
 
     description: String,
 
-    imageUrl: {
+    image: {
         type: String,
         required: true
     },
 
-    // collections: [String],
     
     artist: {
         type: mongoose.Schema.Types.ObjectId, 

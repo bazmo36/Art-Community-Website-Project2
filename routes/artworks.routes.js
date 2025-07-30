@@ -2,6 +2,9 @@ const Artwork = require("../models/Artwork");
 const User = require("../models/User");
 const router = require("express").Router()
 const isSignedIn = require("../middleware/isSignedIn")
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" });
+
 
 
 // Show upload form
@@ -17,11 +20,17 @@ router.get("/new", isSignedIn, async (req, res)=>{
 
 
 // Upload artwork (Create)
-router.post("/", isSignedIn, async (req, res) => {
+router.post("/", isSignedIn, upload.single("image"), async (req, res) => {
   try {
-    req.body.artist = req.session.user._id;
-    await Artwork.create(req.body);
-    res.redirect("/users/profile"); 
+    const newArtwork = await 
+    Artwork.create({
+      title: req.body.title,
+      description: req.body.description,
+      image: `/uploads/${req.file.filename}`, 
+      artist: req.session.user._id
+    });
+
+    res.redirect("/users/profile");
   } catch (error) {
     console.log("Error uploading artwork:", error);
     res.redirect("/artworks/new");

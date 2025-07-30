@@ -5,9 +5,11 @@
 
 <!-- Like Button -->
  <form action="/artworks/<%= foundArtwork._id %>/like" method="POST">
+
     <button type="submit">
         <% if (foundArtwork.likes.includes(user._id)) { %>❤️ Unlike<% } else { %>🤍 Like<% } %>
     </button>
+    
 </form>
 
 <p><%= foundArtwork.likes.length %> Likes</p>

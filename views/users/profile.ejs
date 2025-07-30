@@ -4,31 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= user.username %>'s Profile</title>
+    
 </head>
 <body>
+    
     <h1><%= user.username %>'s Profile</h1>
 
-    <img src="<%=user.profilePic%>" alt="Profile Picture" width="150"><br><br>
-    <p><strong>Email:</strong><%= user.email%></p>
-    <p><strong>Bio:</strong><%= user.bio || "No bio yet."%></p>
-    <p><strong>Followers</strong><%= user.followers.length%></p>
-    <p><strong>Following</strong><%= user.following.length %></p>
+    <!-- ✅ Profile Picture -->
+    <% if (user.profilePic) { %>
+        <img src="<%= user.profilePic %>" alt="Profile Picture" width="150"><br><br>
+    <% } else { %>
+        <img src="/images/default-profile.png" alt="Default Picture" width="150"><br><br>
+    <% } %>
 
+    <!-- Bio -->
+    <p><strong>Bio:</strong> <%= user.bio || "No bio yet." %></p>
+
+    <!-- Followers / Following -->
+    <p><strong>Followers:</strong> <%= user.followers ? user.followers.length : 0 %></p>
+    <p><strong>Following:</strong> <%= user.following ? user.following.length : 0 %></p>
 
     <hr>
 
-  <a href="/home">Homepage</a> |
-  <a href="/users/edit-profile">Edit Profile</a> |
-  <a href="/auth/logout">Logout</a>
+    <!-- Navigation -->
+    <a href="/home">Homepage</a> |
+    <a href="/users/edit-profile">Edit Profile</a> |
+    <a href="/auth/logout">Logout</a>
 
-  <hr>
+    <hr>
 
-   
-  <form action="/users/delete?_method=DELETE" method="POST" onsubmit="return confirm('Are you sure you want to delete your account? This cannot be undone.');">
-  <button type="submit" style="color: red;">Delete Account</button>
-</form>
+    <!-- Delete Account -->
+    <form action="/users/delete?_method=DELETE" method="POST" onsubmit="return confirm('Are you sure you want to delete your account? This cannot be undone.');">
+        <button type="submit" style="color: red;">Delete Account</button>
+    </form>
 
+    <hr>
 
+    <!-- My Artworks Section -->
+    <h2>My Artworks</h2>
+    <% if (myArtworks && myArtworks.length > 0) { %>
+        <div class="artworks-gallery">
+            <% myArtworks.forEach(artwork => { %>
+                <a href="/artworks/<%= artwork._id %>">
+                    <img src="<%= artwork.imageUrl %>" alt="<%= artwork.title %>">
+                </a>
+            <% }) %>
+        </div>
+    <% } else { %>
+        <p>You haven't uploaded any artworks yet.</p>
+        <a href="/artworks/new">Upload your first artwork</a>
+    <% } %>
 
 </body>
 </html>

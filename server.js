@@ -52,6 +52,8 @@ app.use(isSignedIn) //all your protected routes go below this middleware
 app.use("/", homeRoutes);
 app.use("/users", userRoutes)
 app.use("/artworks",artworkRoutes)
+app.use('/uploads', express.static('uploads'));
+
 
 
 

@@ -12,7 +12,10 @@ const upload = multer({ dest: 'uploads/' })
 router.get("/profile",isSignedIn,async(req,res)=>{
     try{
        const user = await User.findById(req.session.user._id)
-       res.render("users/profile",{user})
+
+       const myArtworks = await Artwork.find({ owner: req.session.user._id })
+
+       res.render("users/profile",{user, myArtworks})
     }
      catch{
        console.log(error,"Error loading profil")

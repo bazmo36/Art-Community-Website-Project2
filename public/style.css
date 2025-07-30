@@ -1,0 +1,17 @@
+.artworks-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .artworks-gallery img {
+            width: 200px;
+            height: auto;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .artworks-gallery img:hover {
+            transform: scale(1.05);
+        }
+  
