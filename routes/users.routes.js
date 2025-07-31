@@ -13,11 +13,12 @@ router.get("/profile",isSignedIn,async(req,res)=>{
     try{
        const user = await User.findById(req.session.user._id)
 
-       const myArtworks = await Artwork.find({ owner: req.session.user._id })
+       const myArtworks = await Artwork.find({ artist: req.session.user._id })
+       console.log(myArtworks)
 
        res.render("users/profile",{user, myArtworks})
     }
-     catch{
+     catch(error){
        console.log(error,"Error loading profil")
      }
 })

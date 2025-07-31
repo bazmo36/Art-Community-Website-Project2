@@ -46,7 +46,7 @@
         <div class="artworks-gallery">
             <% myArtworks.forEach(artwork => { %>
                 <a href="/artworks/<%= artwork._id %>">
-                    <img src="<%= artwork.imageUrl %>" alt="<%= artwork.title %>">
+                    <img src="<%= artwork.image %>" alt="<%= artwork.title %>" width="300">
                 </a>
             <% }) %>
         </div>

@@ -32,6 +32,8 @@ app.use(
 ); // uses the secret session code in the .env to encrypt the token
 app.use(passUserToView) //used to set the res.locals.user for each ejs page
 app.set("view engine", "ejs") //is more specific on which view engine we are using
+app.use('/uploads', express.static('uploads'));
+
 
 
 // connect to database
@@ -52,7 +54,6 @@ app.use(isSignedIn) //all your protected routes go below this middleware
 app.use("/", homeRoutes);
 app.use("/users", userRoutes)
 app.use("/artworks",artworkRoutes)
-app.use('/uploads', express.static('uploads'));
 
 
 
