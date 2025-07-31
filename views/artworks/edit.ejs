@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Artwork</title>
+</head>
+<body>
+   <h1>Edit Artwork</h1>
+
+<form action="/artworks/<%= artwork._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+    
+  <!-- Title -->
+  <div>
+    <label for="title">Title:</label><br>
+    <input type="text" id="title" name="title" value="<%= artwork.title %>" required>
+  </div>
+  <br>
+
+  <!-- Description -->
+  <div>
+    <label for="description">Description:</label><br>
+    <textarea id="description" name="description"><%= artwork.description %></textarea>
+  </div>
+  <br>
+
+  <!-- Current Image Preview -->
+  <div>
+    <p>Current Image:</p>
+    <img src="<%= artwork.image %>" alt="<%= artwork.title %>" width="200">
+  </div>
+  <br>
+
+  <!-- Upload New Image -->
+  <div>
+    <label for="image">Upload New Image (optional):</label><br>
+    <input type="file" id="image" name="image">
+  </div>
+  <br>
+
+  <button type="submit">Update Artwork</button>
+</form>
+
+<hr>
+
+<!-- Delete Artwork -->
+<form action="/artworks/<%= artwork._id %>?_method=DELETE" method="POST" onsubmit="return confirm('Are you sure you want to delete this artwork?');">
+    <button type="submit" style="color: red;">Delete Artwork</button>
+</form>
+
+<!-- Back Link -->
+<p><a href="/artworks/<%= artwork._id %>">⬅ Back to Artwork Details</a></p>
+<p><a href="/artworks">⬅ Back to All Artworks</a></p>
+
+</body>
+</html>

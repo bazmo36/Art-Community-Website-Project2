@@ -1,9 +1,28 @@
-<h1>All Artworks</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>All Artworks</h1>
+
+    <a href="/users/profile">Back to Profile</a>
+<hr>
+
 <% allArtworks.forEach(artwork => { %>
-    <div>
-        <h3><%= artwork.title %></h3>
-        <p>By: <%= artwork.artist.username %></p>
-       <img src="<%= artwork.image %>" alt="<%= artwork.title %>" width="300">
-        <a href="/artworks/<%= artwork._id %>">View Details</a>
-    </div>
+  <div>
+    <h3><%= artwork.title %></h3>
+    <p>By: <%= artwork.artist.username %></p>
+    
+    <a href="/artworks/<%= artwork._id %>">
+      <img src="<%= artwork.image %>" alt="<%= artwork.title %>" width="300">
+    </a>
+    
+  </div>
 <% }) %>
+
+
+</body>
+</html>

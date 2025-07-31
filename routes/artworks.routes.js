@@ -39,7 +39,7 @@ router.post("/", isSignedIn, upload.single("image"), async (req, res) => {
 
 
 // Show all artworks
-router.get("/", async (req, res)=>{
+router.get("/", isSignedIn, async (req, res)=>{
   try {
     const allArtworks = await Artwork.find().populate("artist");
     res.render("artworks/all-artworks.ejs", {allArtworks,user: req.session.user})
@@ -50,8 +50,9 @@ router.get("/", async (req, res)=>{
 })
 
 
+
 // Show artwork details
-router.get("/:artworkId", async (req, res)=>{
+router.get("/:artworkId",isSignedIn, async (req, res)=>{
   try {
     const foundArtwork = await Artwork.findById(req.params.artworkId)
       .populate("artist")
@@ -63,6 +64,76 @@ router.get("/:artworkId", async (req, res)=>{
     console.log("Error showing artwork details:", error);
   }
 })
+
+
+//Show edit form
+router.get("/:artworkId/edit",isSignedIn, async(req,res)=>{
+  try{
+      const artwork = await Artwork.findById(req.params.artworkId)
+
+      //only the owner can edit 
+       if (!artwork.artist.equals(req.session.user._id)){
+        return res.send("You are not authorized to edit this artwork.")
+       }
+
+       res.render("artworks/edit",{artwork})
+  }
+   catch(error){
+      console.log("Error showing edit form:",error)
+   }
+})
+
+
+//Update artwork
+router.put("/:artworkId", isSignedIn, upload.single("image"), async(req,res)=>{
+  try{
+    const artwork = await Artwork.findById(req.params.artworkId)
+    
+    if(!artwork.artist.equals(req.session.user._id)){
+      
+      return res.send("Unauthorized action.")
+    }
+    
+    artwork.title = req.body.title
+    artwork.description = req.body.description
+
+    if(req.file){
+      artwork.image =`/uploads/${req.file.filename}`
+    }
+
+    await artwork.save()
+    res.redirect(`/artworks/${artwork._id}`)
+
+
+  }
+
+  catch(error){
+    console.log("Error updating artwork:",error)
+
+  }
+
+})
+
+
+  //Delete arwork
+  router.delete("/:artworkId",isSignedIn, async(req,res)=>{
+    try{
+      const artwork = await Artwork.findById(req.params.artworkId)
+
+      if(!artwork.artist.equals(req.session.user._id)){
+        return res.send("Unauthorized action")
+      }
+
+      await Artwork.findByIdAndDelete(req.params.artworkId)
+      res.redirect("users/profile")
+
+    }
+
+     catch(error){
+      console.log("Error deleted artwork:",error)
+     }
+  })
+
 
 
 //add comment to an artwork
@@ -83,6 +154,7 @@ router.post("/:artworkId/comment", isSignedIn, async (req, res) => {
 })
 
 
+//add like and unlike
 router.post("/:artworkId/like", isSignedIn, async(req,res)=>{
     try{
     const artwork = await Artwork.findById(req.params.artworkId)
@@ -101,5 +173,7 @@ router.post("/:artworkId/like", isSignedIn, async(req,res)=>{
     console.log("Error liking artwork:", error)
   }
 })
+
+
 
 module.exports= router
