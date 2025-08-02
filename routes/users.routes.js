@@ -9,35 +9,39 @@ const upload = multer({ dest: 'uploads/' })
 
 
 // Profile Page
-router.get("/profile",isSignedIn,async(req,res)=>{
-    try{
-       const user = await User.findById(req.session.user._id)
+router.get("/profile", isSignedIn, async (req, res) => {
+  try {
+    const currentUser = await User.findById(req.session.user._id)
+    .populate("following")
+    .populate("followers")
 
-       const myArtworks = await Artwork.find({ artist: req.session.user._id })
-       console.log(myArtworks)
+    const myArtworks = await Artwork.find({ artist: currentUser._id })
 
-       res.render("users/profile",{user, myArtworks})
-    }
-     catch(error){
-       console.log(error,"Error loading profil")
-     }
+
+    res.render("users/profile", { user: currentUser,currentUser, myArtworks })
+  }
+  catch (error) {
+    console.log("Error loading profil:",error)
+     res.redirect("/")
+  }
 })
 
 
+
 //Show Edit Profile
-router.get("/edit-profile",isSignedIn, async(req,res)=>{
-    try {
-        const user = await User.findById(req.session.user._id);
-        res.render("users/edit-profile.ejs", { user, error: null });
-    } 
-     catch (error) {
-        console.log(error,"Error loading edit profile page")
-    }
+router.get("/edit-profile", isSignedIn, async (req, res) => {
+  try {
+    const user = await User.findById(req.session.user._id);
+    res.render("users/edit-profile.ejs", { user, error: null });
+  }
+  catch (error) {
+    console.log(error, "Error loading edit profile page")
+  }
 })
 
 
 router.put("/edit-profile",
-isSignedIn, upload.single("profilePic"),async (req, res) => {
+  isSignedIn, upload.single("profilePic"), async (req, res) => {
     try {
       const updateData = { bio: req.body.bio || "" };
 
@@ -53,8 +57,8 @@ isSignedIn, upload.single("profilePic"),async (req, res) => {
       req.session.user = updatedUser;
 
       res.redirect("/users/profile");
-    } 
-     catch (error) {
+    }
+    catch (error) {
       console.log("Error updating profile:", error);
       res.render("users/edit-profile.ejs", {
         user: req.session.user,
@@ -78,21 +82,71 @@ router.delete("/delete", isSignedIn, async (req, res) => {
   }
 });
 
-//My aerwork section
-router.get("/profile", isSignedIn, async (req, res) => {
-  try {
-    const user = await User.findById(req.session.user._id);
-    const artworks = await Artwork.find({ userId: req.session.user._id });
 
-    res.render("users/profile", { user, artworks });
-  } 
-  catch (error) {
-    console.log("Error loading profile:", error)
-    res.redirect("/")
+
+
+// Follow a user
+router.post("/follow/:id", isSignedIn, async (req, res) => {
+  const currentUser = await User.findById(req.session.user._id)
+
+  const targetUser = await User.findById(req.params.id)
+
+  if (!targetUser.followers.includes(currentUser._id)) {
+
+    targetUser.followers.push(currentUser._id)
+
+    currentUser.following.push(targetUser._id)
+
+    await targetUser.save()
+    await currentUser.save()
+
   }
+
+  res.redirect(`/users/${targetUser._id}`)
+
 })
 
 
+
+//Unfollow a user
+router.post("/unfollow/:id", isSignedIn, async (req, res) => {
+
+  const currentUser = await User.findById(req.session.user._id)
+
+  const targetUser = await User.findById(req.params.id)
+
+  targetUser.followers = targetUser.followers.filter((followerId) => !followerId.equals(currentUser._id)
+  )
+
+  currentUser.following = currentUser.following.filter((followerId) => !followerId.equals(targetUser._id))
+
+  await targetUser.save()
+  await currentUser.save()
+
+  res.redirect(`/users/${targetUser._id}`)
+
+})
+
+
+//View another user's profile
+router.get("/:id",isSignedIn,async(req,res)=>{
+  try{
+    const currentUser = await User.findById(req.session.user._id)
+    .populate("following")
+
+     const targetUser = await User.findById(req.params._id)
+    .populate("following")
+    .populate("followers")
+
+    const myArtwork = await Artwork.find({artist: targetUser._id})
+
+    res.render("users/profile", {user:targetUser,currentUser, myArtwork})
+
+  }
+   catch(error){
+    console.log("Error loading user profile",error)
+   }
+})
 
 
 

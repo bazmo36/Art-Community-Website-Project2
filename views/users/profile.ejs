@@ -19,7 +19,7 @@
     <% if (user.profilePic) { %>
         <img src="<%= user.profilePic %>" alt="Profile Picture" width="150"><br><br>
         <% } else { %>
-            <img src="/images/default-profile.png" alt="Default Picture" width="150"><br><br>
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small_2x/default-avatar-icon-of-social-media-user-vector.jpg" alt="Default Picture" width="150"><br><br>
             <% } %>
 
                 <!-- Bio -->
@@ -29,11 +29,48 @@
 
                 <!-- Followers / Following -->
                 <p><strong>Followers:</strong>
-                    <%= user.followers ? user.followers.length : 0 %>
+                    <%= user.followers.length %>
                 </p>
                 <p><strong>Following:</strong>
-                    <%= user.following ? user.following.length : 0 %>
+                    <%= user.following.length %>
                 </p>
+
+                 
+                <!-- Follow/Unfollow Button -->
+                <% if (currentUser._id.toString() !== user._id.toString()) { %> 
+
+                    <% const isFollowing = currentUser.following.some(id=> id.toString()=== user._id.toString()) %>
+
+                    <form action="/users/<%=isFollowing ?'unfollow' : 'follow'%>/<%=user._id%>" method="post">
+                        <button type="submit">
+                            <%=isFollowing ? 'Unfollow' : 'Follow' %>
+                        </button>
+
+                    </form>
+
+                    <%}%>
+
+
+                    <!-- List of Followers -->
+                     <h3>Followers</h3>
+                     <ul>
+                        <%user.followers.forEach(follower=>{%>
+                            <li><a href="/users/<%= follower._id%>/<%=follower.username%>"></a></li>
+                        <%})%>
+                     </ul>
+
+
+                    <!-- List of Following -->
+                     <h3>following</h3>
+                     <ul>
+                      <%user.following.forEach(following=>{%>
+                        <li><a href="/users/<%=following._id%>/<%=following.username%>"></a></li>
+
+                      <%})%>
+                      </ul>
+                     
+
+
 
                 <!-- Navigation -->
                 <a href="/home">Homepage</a> |
@@ -50,7 +87,8 @@
                 <hr>
 
                 <!-- Create New Artwork -->
-                <h2>My Artworks</h2>
+               <h2><%= user.username === currentUser.username ? "My Artworks" : user.username + "'s Artworks" %></h2>
+
                 <a href="/artworks/new">Create New Artwork</a>
                 <br><br>
 
@@ -58,8 +96,10 @@
                 <% if (myArtworks && myArtworks.length> 0) { %>
                     <% myArtworks.forEach(artwork=> { %>
 
-                        <p><strong><%= artwork.title %></strong></p>
-                        
+                        <p><strong>
+                                <%= artwork.title %>
+                            </strong></p>
+
                         <a href="/artworks/<%= artwork._id %>">
                             <img src="<%= artwork.image %>" alt="<%= artwork.title %>" width="200">
                         </a>
