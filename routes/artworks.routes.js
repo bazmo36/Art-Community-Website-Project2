@@ -41,7 +41,7 @@ router.post("/", isSignedIn, upload.single("image"), async (req, res) => {
 // Show all artworks
 router.get("/", isSignedIn, async (req, res)=>{
   try {
-    const allArtworks = await Artwork.find().populate("artist");
+    const allArtworks = await Artwork.find().populate("artist","username");
     res.render("artworks/all-artworks.ejs", {allArtworks,user: req.session.user})
   } 
    catch (error) {

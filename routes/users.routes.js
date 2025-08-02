@@ -8,7 +8,7 @@ const upload = multer({ dest: 'uploads/' })
 
 
 
-// Profile Page
+//View Current User Profile  
 router.get("/profile", isSignedIn, async (req, res) => {
   try {
     const currentUser = await User.findById(req.session.user._id)
@@ -28,7 +28,7 @@ router.get("/profile", isSignedIn, async (req, res) => {
 
 
 
-//Show Edit Profile
+//Show Edit Profile Page
 router.get("/edit-profile", isSignedIn, async (req, res) => {
   try {
     const user = await User.findById(req.session.user._id);
@@ -133,18 +133,20 @@ router.get("/:id",isSignedIn,async(req,res)=>{
   try{
     const currentUser = await User.findById(req.session.user._id)
     .populate("following")
+    .populate("followers")
 
-     const targetUser = await User.findById(req.params._id)
+     const targetUser = await User.findById(req.params.id)
     .populate("following")
     .populate("followers")
 
-    const myArtwork = await Artwork.find({artist: targetUser._id})
+    const myArtworks = await Artwork.find({artist: targetUser._id})
 
-    res.render("users/profile", {user:targetUser,currentUser, myArtwork})
+    res.render("users/profile", {user:targetUser,currentUser, myArtworks})
 
   }
    catch(error){
     console.log("Error loading user profile",error)
+    res.redirect("/home")
    }
 })
 

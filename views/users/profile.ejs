@@ -55,7 +55,10 @@
                      <h3>Followers</h3>
                      <ul>
                         <%user.followers.forEach(follower=>{%>
-                            <li><a href="/users/<%= follower._id%>/<%=follower.username%>"></a></li>
+                            <li><a href="/users/<%= follower._id%>">
+                                <%=follower.username%>
+                            </a>
+                        </li>
                         <%})%>
                      </ul>
 
@@ -64,35 +67,47 @@
                      <h3>following</h3>
                      <ul>
                       <%user.following.forEach(following=>{%>
-                        <li><a href="/users/<%=following._id%>/<%=following.username%>"></a></li>
+                        <li><a href="/users/<%=following._id%>">
+                            <%=following.username%>
+                        </a>
+                    </li>
 
                       <%})%>
                       </ul>
                      
 
+    
+              <!-- Navigation -->
+               <a href="/home">Homepage</a> |
 
+              <% if (currentUser._id.toString() === user._id.toString()){ %>
 
-                <!-- Navigation -->
-                <a href="/home">Homepage</a> |
+                <!-- Edit profile and logout -->
                 <a href="/users/edit-profile">Edit Profile</a> |
                 <a href="/auth/logout">Logout</a>
                 <br><br>
 
                 <!-- Delete Account -->
                 <form action="/users/delete?_method=DELETE" method="POST"
-                    onsubmit="return confirm('Are you sure you want to delete your account? This cannot be undone.');">
+                    onsubmit="return confirm('Are you sure you want to delete your account? ');">
                     <button type="submit" style="color: red;">Delete Account</button>
                 </form>
 
+                <%}%>
+
+
                 <hr>
 
-                <!-- Create New Artwork -->
-               <h2><%= user.username === currentUser.username ? "My Artworks" : user.username + "'s Artworks" %></h2>
 
+    
+
+                <!-- Create New Artwork -->
+               <% if (currentUser._id.toString() === user._id.toString()) { %>
+                 <h2>My Artworks</h2>
                 <a href="/artworks/new">Create New Artwork</a>
                 <br><br>
 
-                <!-- User's Artworks -->
+                 <!-- My Artworks -->
                 <% if (myArtworks && myArtworks.length> 0) { %>
                     <% myArtworks.forEach(artwork=> { %>
 
@@ -119,6 +134,29 @@
                                 <a href="/artworks/new">Upload your first artwork</a>
                                 <% } %>
 
+                                
+                <% } else { %>
+                     <h2><%= user.username %>'s Artworks</h2>
+
+                     <% if (myArtworks && myArtworks.length > 0) { %>
+                     <% myArtworks.forEach(artwork => { %>
+                      <p><strong><%= artwork.title %></strong></p>
+                      <a href="/artworks/<%= artwork._id %>">
+                       <img src="<%= artwork.image %>" alt="<%= artwork.title %>" width="200">
+                         </a>
+                         <br><hr>
+                              <% }) %>
+                           <% } else { %>
+                           <p><%= user.username %> hasn’t uploaded any artworks yet.</p>
+                         <% } %>
+
+  <% } %>
+        
+                    
+
+               
+
+               
 </body>
 
 </html>
