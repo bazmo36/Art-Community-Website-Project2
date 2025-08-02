@@ -151,5 +151,30 @@ router.get("/:id",isSignedIn,async(req,res)=>{
 })
 
 
+//Followers List Page
+router.get("/:id/followers", isSignedIn, async(req,res)=>{
+  try{
+    const user = await User.findById(req.params.id).populate("followers")
+    res.render("users/followers",{user,followers:user.followers})
+  }
+   catch(error){
+     console.log("Error louding followers :",error)
+   }
+})
+
+
+//Followering List Page
+router.get("/:id/following", isSignedIn, async(req,res)=>{
+  try{
+    const user = await User.findById(req.params.id).populate("following")
+    res.render("users/following",{user,following:user.following})
+   
+  }
+   catch(error){
+     console.log("Error louding following :",error)
+   }
+})
+
+
 
 module.exports = router

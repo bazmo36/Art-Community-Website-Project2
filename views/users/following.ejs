@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= user.username %>'s Following</title>
+</head>
+<body>
+  <h1><%= user.username %>'s Following</h1>
+
+  <% if (following.length > 0) { %>
+    <ul>
+      <% following.forEach(person => { %>
+        <li>
+          <a href="/users/<%= person._id %>"><%= person.username %></a>
+        </li>
+      <% }) %>
+    </ul>
+  <% } else { %>
+    <p>Not following anyone yet.</p>
+  <% } %>
+
+  <br>
+  <a href="/users/<%= user._id %>">Back to Profile</a>
+</body>
+</html>

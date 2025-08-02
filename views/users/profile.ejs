@@ -29,11 +29,13 @@
 
                 <!-- Followers / Following -->
                 <p><strong>Followers:</strong>
-                    <%= user.followers.length %>
+                  <a href="/users/<%=user._id%>/followers"><%= user.followers.length %></a>  
                 </p>
                 <p><strong>Following:</strong>
-                    <%= user.following.length %>
+                  <a href="/users/<%=user._id%>/following"> <%= user.following.length %></a> 
                 </p>
+
+     
 
                  
                 <!-- Follow/Unfollow Button -->
@@ -50,31 +52,6 @@
 
                     <%}%>
 
-
-                    <!-- List of Followers -->
-                     <h3>Followers</h3>
-                     <ul>
-                        <%user.followers.forEach(follower=>{%>
-                            <li><a href="/users/<%= follower._id%>">
-                                <%=follower.username%>
-                            </a>
-                        </li>
-                        <%})%>
-                     </ul>
-
-
-                    <!-- List of Following -->
-                     <h3>following</h3>
-                     <ul>
-                      <%user.following.forEach(following=>{%>
-                        <li><a href="/users/<%=following._id%>">
-                            <%=following.username%>
-                        </a>
-                    </li>
-
-                      <%})%>
-                      </ul>
-                     
 
     
               <!-- Navigation -->
