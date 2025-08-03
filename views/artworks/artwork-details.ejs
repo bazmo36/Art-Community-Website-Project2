@@ -1,45 +1,66 @@
-<h1>
-    <%= foundArtwork.title %>
-</h1>
-<p>
-    <%= foundArtwork.description %>
-</p>
-<p>Artist:
-    <a href="/users/<%= foundArtwork.artist._id %>">
-        <%= foundArtwork.artist.username %>
-    </a>
-</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= foundArtwork.title %> | Art Platform</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="light">
+    <%- include('../partials/navbar') %>
 
-<img src="<%= foundArtwork.image %>" alt="<%= foundArtwork.title %>" width="300">
+    <main class="container artwork-details-page">
+        <div class="artwork-details">
+            <div class="artwork-image">
+                <img src="<%= foundArtwork.image %>" alt="<%= foundArtwork.title %>">
+            </div>
+            <div class="artwork-meta">
+                <h1><%= foundArtwork.title %></h1>
+                <p><%= foundArtwork.description %></p>
+                <p>Artist: 
+                    <a href="/users/<%= foundArtwork.artist._id %>">
+                        <%= foundArtwork.artist.username %>
+                    </a>
+                </p>
 
-<!-- Like Button -->
-<form action="/artworks/<%= foundArtwork._id %>/like" method="POST">
+                <!-- Like Button -->
+                <form action="/artworks/<%= foundArtwork._id %>/like" method="POST">
+                    <button type="submit" class="btn-like">
+                        <% if (foundArtwork.likes.includes(user._id)) { %>
+                            ❤️ Unlike
+                        <% } else { %>
+                            🤍 Like
+                        <% } %>
+                    </button>
+                </form>
 
-    <button type="submit">
-        <% if (foundArtwork.likes.includes(user._id)) { %>❤️ Unlike<% } else { %>🤍 Like<% } %>
-    </button>
+                <p><%= foundArtwork.likes.length %> Likes</p>
 
-</form>
+                <hr>
 
-<p>
-    <%= foundArtwork.likes.length %> Likes
-</p>
+                <!-- Comments Section -->
+                <h3>Comments</h3>
+                <div class="comments-section">
+                    <% if (foundArtwork.comments.length > 0) { %>
+                        <% foundArtwork.comments.forEach(comment => { %>
+                            <p><strong><%= comment.user.username %>:</strong> <%= comment.content %></p>
+                        <% }) %>
+                    <% } else { %>
+                        <p>No comments yet. Be the first to comment!</p>
+                    <% } %>
+                </div>
 
-<!-- Comments -->
-<h3>Comments:</h3>
-<% foundArtwork.comments.forEach(comment=> { %>
-    <p><strong>
-            <%= comment.user.username %>
-        </strong>: <%= comment.content %>
-    </p>
-    <% }) %>
+                <!-- Add Comment -->
+                <form action="/artworks/<%= foundArtwork._id %>/comment" method="POST" class="form">
+                    <textarea name="content" placeholder="Add a comment..." required></textarea>
+                    <button type="submit" class="btn-primary">Add Comment</button>
+                </form>
 
-        <form action="/artworks/<%= foundArtwork._id %>/comment" method="POST">
-            <textarea name="content" required></textarea>
-            <button type="submit">Add Comment</button>
-        </form>
+                <a href="javascript:history.back()" class="btn-secondary">⬅ Go Back</a>
+            </div>
+        </div>
+    </main>
 
-
-        <!-- <a href="/artworks">Back to all artworks</a> -->
-
-        <a href="javascript:history.back()">Go Back</a>
+    <%- include('../partials/footer') %>
+</body>
+</html>

@@ -1,53 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Artworks</title>
+    <title>Explore Artworks | Art Platform</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
+<body class="light">
+    <%- include('../partials/navbar') %>
 
-<main class="container">
-    <h1 class="page-title">Explore Artworks</h1>
+    <main class="container explore-page">
+        <h1>Explore Artworks</h1>
+        <a href="/users/profile" class="btn-secondary">⬅ Back to Profile</a>
+        <hr>
 
-    <!-- Search Filter -->
-    <form action="/artworks" method="get" class="search-filter">
-        <input type="text" name="q" placeholder="Search artworks..." value="<%= q || '' %>">
-        <button type="submit" class="btn-primary">Search</button>
-    </form>
-
-
-    <section class="artworks-grid">
-        <% if (allArtworks.length> 0) {%>
-            <% allArtworks.forEach(artwork=> { %>
-                <div class="art-card">
-                    <div class="art-card">
+        <% if (allArtworks.length > 0) { %>
+            <div class="artworks-grid">
+                <% allArtworks.forEach(artwork => { %>
+                    <div class="artwork-card">
                         <a href="/artworks/<%= artwork._id %>">
-                            <img src="<%= artwork.image %>" alt="<%= artwork.title %>" class="art-image">
+                            <img src="<%= artwork.image %>" alt="<%= artwork.title %>" class="artwork-img">
                         </a>
-                        <div class="art-info">
-                            <h3 class="art-title">
-                                <%= artwork.title %>
-                            </h3>
-                            <p class="art-artist">
-                                by <a href="/users/<%= artwork.artist._id %>">
-                                    <%= artwork.artist.username %>
-                                </a>
+                        <div class="artwork-info">
+                            <p class="artwork-title"><%= artwork.title %></p>
+                            <p class="artwork-artist">
+                                By <a href="/users/<%= artwork.artist._id %>"><%= artwork.artist.username %></a>
                             </p>
                         </div>
                     </div>
-                    <% }) %>
-                        <% } else { %>
-                            <p class="no-results">No artworks found.</p>
-                            <% } %>
-    </section>
+                <% }) %>
+            </div>
+        <% } else { %>
+            <p>No artworks uploaded yet. Be the first to share your creativity!</p>
+        <% } %>
+    </main>
 
-</main>
-
-<%- include('../partials/footer') %>
-
-
-    </body>
-
+    <%- include('../partials/footer') %>
+</body>
 </html>

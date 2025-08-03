@@ -3,54 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Artwork</title>
+    <title>Edit Artwork </title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
-   <h1>Edit Artwork</h1>
+<body class="light">
+    <%- include('../partials/navbar') %>
 
-<form action="/artworks/<%= artwork._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
-    
-  <!-- Title -->
-  <div>
-    <label for="title">Title:</label><br>
-    <input type="text" id="title" name="title" value="<%= artwork.title %>" required>
-  </div>
-  <br>
+    <main class="container">
+        <h1 class="page-title">Edit Artwork</h1>
 
-  <!-- Description -->
-  <div>
-    <label for="description">Description:</label><br>
-    <textarea id="description" name="description"><%= artwork.description %></textarea>
-  </div>
-  <br>
+        <form action="/artworks/<%= artwork._id %>?_method=PUT" method="POST" enctype="multipart/form-data" class="form">
+            <!-- Title -->
+            <div class="form-group">
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" value="<%= artwork.title %>" required>
+            </div>
 
-  <!-- Current Image Preview -->
-  <div>
-    <p>Current Image:</p>
-    <img src="<%= artwork.image %>" alt="<%= artwork.title %>" width="200">
-  </div>
-  <br>
+            <!-- Description -->
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea id="description" name="description"><%= artwork.description %></textarea>
+            </div>
 
-  <!-- Upload New Image -->
-  <div>
-    <label for="image">Upload New Image (optional):</label><br>
-    <input type="file" id="image" name="image">
-  </div>
-  <br>
+            <!-- Current Image Preview -->
+            <div class="form-group">
+                <p>Current Image:</p>
+                <img src="<%= artwork.image %>" alt="<%= artwork.title %>" class="preview-img">
+            </div>
 
-  <button type="submit">Update Artwork</button>
-</form>
+            <!-- Upload New Image -->
+            <div class="form-group">
+                <label for="image">Upload New Image (optional):</label>
+                <input type="file" id="image" name="image" accept="image/*" onchange="previewImage(event)">
+            </div>
 
-<hr>
+            <!-- New Image Preview -->
+            <div id="new-image-preview" class="form-group hidden">
+                <p>New Image Preview:</p>
+                <img id="preview" class="preview-img" alt="New Image Preview">
+            </div>
 
-<!-- Delete Artwork -->
-<form action="/artworks/<%= artwork._id %>?_method=DELETE" method="POST" onsubmit="return confirm('Are you sure you want to delete this artwork?');">
-    <button type="submit" style="color: red;">Delete Artwork</button>
-</form>
+            <button type="submit" class="btn-primary">Update Artwork</button>
+        </form>
 
-<!-- Back Link -->
-<p><a href="/artworks/<%= artwork._id %>">⬅ Back to Artwork Details</a></p>
-<p><a href="/artworks">⬅ Back to All Artworks</a></p>
+        <hr>
 
+        <!-- Delete Artwork -->
+        <form action="/artworks/<%= artwork._id %>?_method=DELETE" method="POST" onsubmit="return confirm('Are you sure you want to delete this artwork?');">
+            <button type="submit" class="btn-danger">Delete Artwork</button>
+        </form>
+
+        <a href="/artworks/<%= artwork._id %>" class="btn-secondary">⬅ Back to Artwork Details</a>
+        <a href="/artworks" class="btn-secondary">⬅ Back to All Artworks</a>
+    </main>
+
+    <%- include('../partials/footer') %>
+
+    <script>
+        function previewImage(event) {
+            const file = event.target.files[0];
+            const previewContainer = document.getElementById('new-image-preview');
+            const previewImg = document.getElementById('preview');
+
+            if (file) {
+                previewContainer.classList.remove('hidden');
+                previewImg.src = URL.createObjectURL(file);
+            } else {
+                previewContainer.classList.add('hidden');
+                previewImg.src = '';
+            }
+        }
+    </script>
 </body>
 </html>

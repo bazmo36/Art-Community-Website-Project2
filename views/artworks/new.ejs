@@ -1,37 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
-<body>
-   <h1>Upload Artwork</h1>
 
-<form action="/artworks" method="POST" enctype="multipart/form-data">
-    
-  <div>
-    <label for="title">Title:</label><br>
-    <input type="text" id="title" name="title" placeholder="Title" required>
-  </div>
-  <br>
+<body class="light">
+  <%- include('../partials/navbar') %>
 
-  <div>
-    <label for="description">Description:</label><br>
-    <textarea id="description" name="description" placeholder="Description"></textarea>
-  </div>
-  <br>
+    <main class="container">
+      <h1 class="page-title">Upload Artwork</h1>
 
-  <div>
-    <label for="image">Upload Image:</label><br>
-    <input type="file" id="image" name="image"required>
-  </div>
-  <br>
+      <form action="/artworks" method="POST" enctype="multipart/form-data">
 
-  <button type="submit">Upload</button>
-</form>
+        <!-- Title -->
+        <div class="form-group">
+          <label for="title">Title:</label><br>
+          <input type="text" id="title" name="title" placeholder="Title" required>
+        </div>
+
+
+        <!-- Description -->
+        <div class="form-group">
+          <label for="description">Description:</label><br>
+          <textarea id="description" name="description" placeholder="Description"></textarea>
+        </div>
+
+
+        <!-- Upload Image -->
+        <div class="form-group">
+          <label for="image">Upload Image:</label><br>
+          <input type="file" id="image" name="image" required>
+        </div>
+
+
+        <button type="submit">Upload</button>
+      </form>
+
+      <a href="/artworks" class="btn-secondary">⬅ Back to All Artworks</a>
+    </main>
+
+    <%- include('../partials/footer') %>
 
 
 </body>
-</html>
 
+</html>

@@ -1,24 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title><%= user.username %>'s Following</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= user.username %>'s Following | Art Platform</title>
+  <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
-  <h1><%= user.username %>'s Following</h1>
+<body class="light">
+  <%- include('../partials/navbar') %>
 
-  <% if (following.length > 0) { %>
-    <ul>
-      <% following.forEach(person => { %>
-        <li>
-          <a href="/users/<%= person._id %>"><%= person.username %></a>
-        </li>
-      <% }) %>
-    </ul>
-  <% } else { %>
-    <p>Not following anyone yet.</p>
-  <% } %>
+  <main class="container">
+    <h1><%= user.username %>'s Following</h1>
 
-  <br>
-  <a href="/users/<%= user._id %>">Back to Profile</a>
+    <% if (following.length > 0) { %>
+      <ul class="user-list">
+        <% following.forEach(person => { %>
+          <li class="user-item">
+            <a href="/users/<%= person._id %>" class="user-link">
+              <% if (person.profilePic) { %>
+                <img src="<%= person.profilePic %>" alt="<%= person.username %>" class="user-avatar">
+              <% } else { %>
+                <img src="https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small_2x/default-avatar-icon-of-social-media-user-vector.jpg" alt="Default" class="user-avatar">
+              <% } %>
+              <span><%= person.username %></span>
+            </a>
+          </li>
+        <% }) %>
+      </ul>
+    <% } else { %>
+      <p>Not following anyone yet.</p>
+    <% } %>
+
+    <a href="/users/<%= user._id %>" class="btn-secondary">⬅ Back to Profile</a>
+  </main>
+
+  <%- include('../partials/footer') %>
 </body>
 </html>

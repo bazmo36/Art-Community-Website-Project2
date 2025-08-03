@@ -1,24 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title><%= user.username %>'s Followers</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= user.username %>'s Followers | Art Platform</title>
+  <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
-  <h1><%= user.username %>'s Followers</h1>
+<body class="light">
+  <%- include('../partials/navbar') %>
 
-  <% if (followers.length > 0) { %>
-    <ul>
-      <% followers.forEach(follower => { %>
-        <li>
-          <a href="/users/<%= follower._id %>"><%= follower.username %></a>
-        </li>
-      <% }) %>
-    </ul>
-  <% } else { %>
-    <p>No followers yet.</p>
-  <% } %>
+  <main class="container">
+    <h1><%= user.username %>'s Followers</h1>
 
-  <br>
-  <a href="/users/<%= user._id %>">Back to Profile</a>
+    <% if (followers.length > 0) { %>
+      <ul class="user-list">
+        <% followers.forEach(follower => { %>
+          <li class="user-item">
+            <a href="/users/<%= follower._id %>" class="user-link">
+              <% if (follower.profilePic) { %>
+                <img src="<%= follower.profilePic %>" alt="<%= follower.username %>" class="user-avatar">
+              <% } else { %>
+                <img src="https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small_2x/default-avatar-icon-of-social-media-user-vector.jpg" alt="Default" class="user-avatar">
+              <% } %>
+              <span><%= follower.username %></span>
+            </a>
+          </li>
+        <% }) %>
+      </ul>
+    <% } else { %>
+      <p>No followers yet.</p>
+    <% } %>
+
+    <a href="/users/<%= user._id %>" class="btn-secondary">⬅ Back to Profile</a>
+  </main>
+
+  <%- include('../partials/footer') %>
 </body>
 </html>

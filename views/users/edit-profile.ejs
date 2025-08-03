@@ -4,32 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Profile</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
-    <h1>Edit Profile</h1>
-    <% if (error) {%> 
-    <p style="color: red;"><%= error%></p>
-    <%}%>
+<body class="light">
+    <%- include('../partials/navbar') %>
 
-   <form action="/users/edit-profile?_method=PUT" method="POST" enctype="multipart/form-data">
+    <main class="container">
+        <h1>Edit Profile</h1>
+        <% if (error) { %> 
+            <p class="error"><%= error %></p>
+        <% } %>
 
+        <form action="/users/edit-profile?_method=PUT" method="POST" enctype="multipart/form-data" class="form">
+            <!-- Bio -->
+            <div class="form-group">
+                <label for="bio">Bio:</label>
+                <textarea id="bio" name="bio" rows="4" cols="50" placeholder="Write something about yourself..."><%= user.bio %></textarea>
+            </div>
 
-        <div>
-            <label for="bio">Bio:</label><br>
-            <textarea id="bio" name="bio" rows="4" cols="50"><%= user.bio %></textarea>
-        </div>
-        <br>
+            <!-- Profile Picture -->
+            <div class="form-group">
+                <label for="profilePic">Profile Picture:</label>
+                <input type="file" id="profilePic" name="profilePic" accept="image/*">
+            </div>
 
-        <div>
-            <label for="profilePic">Profile Picture:</label><br>
-            <input type="file" id="profilePic" name="profilePic">
-        </div>
-        <br>
+            <button type="submit" class="btn-primary">Update Profile</button>
+        </form>
 
-        <button type="submit">Update Profile</button>
+        <a href="/users/profile" class="btn-secondary">⬅ Back to Profile</a>
+    </main>
 
-    </form>
-
-    <a href="/users/profile">Back to Profile</a>
+    <%- include('../partials/footer') %>
 </body>
 </html>

@@ -125,7 +125,7 @@ router.put("/:artworkId", isSignedIn, upload.single("image"), async(req,res)=>{
       }
 
       await Artwork.findByIdAndDelete(req.params.artworkId)
-      res.redirect("users/profile")
+      res.redirect("/artworks/users/profile");
 
     }
 
