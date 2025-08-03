@@ -1,0 +1,12 @@
+<footer class="footer">
+    <p>&copy; <%= new Date().getFullYear() %> Art Platform. All rights reserved.</p>
+    <button id="back-to-top" class="back-to-top">⬆ Back to Top</button>
+</footer>
+<script src="/js/theme.js"></script>
+<script>
+    // Smooth scroll to top
+    document.getElementById('back-to-top').addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+</script>
+

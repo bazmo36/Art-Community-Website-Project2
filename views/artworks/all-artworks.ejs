@@ -4,34 +4,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>All Artworks</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 
-<body>
-    <h1>All Artworks</h1>
+<main class="container">
+    <h1 class="page-title">Explore Artworks</h1>
 
-    <a href="/users/profile">Back to Profile</a>
-    <hr>
-
-    <% allArtworks.forEach(artwork=> { %>
-        <div>
-            <h3>
-                <%= artwork.title %>
-            </h3>
-            <p>By:
-                <a href="/users/<%= artwork.artist._id %>">
-                    <%= artwork.artist.username %>
-                </a>
-            </p>
-
-            <a href="/artworks/<%= artwork._id %>">
-                <img src="<%= artwork.image %>" alt="<%= artwork.title %>" width="300">
-            </a>
-
-        </div>
-        <% }) %>
+    <!-- Search Filter -->
+    <form action="/artworks" method="get" class="search-filter">
+        <input type="text" name="q" placeholder="Search artworks..." value="<%= q || '' %>">
+        <button type="submit" class="btn-primary">Search</button>
+    </form>
 
 
-</body>
+    <section class="artworks-grid">
+        <% if (allArtworks.length> 0) {%>
+            <% allArtworks.forEach(artwork=> { %>
+                <div class="art-card">
+                    <div class="art-card">
+                        <a href="/artworks/<%= artwork._id %>">
+                            <img src="<%= artwork.image %>" alt="<%= artwork.title %>" class="art-image">
+                        </a>
+                        <div class="art-info">
+                            <h3 class="art-title">
+                                <%= artwork.title %>
+                            </h3>
+                            <p class="art-artist">
+                                by <a href="/users/<%= artwork.artist._id %>">
+                                    <%= artwork.artist.username %>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                    <% }) %>
+                        <% } else { %>
+                            <p class="no-results">No artworks found.</p>
+                            <% } %>
+    </section>
+
+</main>
+
+<%- include('../partials/footer') %>
+
+
+    </body>
 
 </html>
