@@ -2,160 +2,106 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <%= user.username %>'s Profile
-    </title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title><%= user.username %>'s Profile</title>
+    <link rel="stylesheet" href="/css/style.css" />
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playwrite+AU+QLD:wght@100..400&display=swap" rel="stylesheet">
 </head>
 
 <body class="light">
 
     <%- include('../partials/navbar') %>
 
-        <main class="container profile-page">
-            <h1>
-                <%= user.username %>'s Profile
-            </h1>
+    <main class="container profile-page">
+        <h1><%= user.username %>'s Profile</h1>
 
+        <!-- Profile Section -->
+        <section class="profile-info">
 
-            <!-- Profile Section -->
-            <section class="Profile-info">
+            <div class="profile-pic">
+                <% if (user.profilePic) { %>
+                <img src="<%= user.profilePic %>" alt="Profile Picture" width="150" />
+                <% } else { %>
+                <img src="https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small_2x/default-avatar-icon-of-social-media-user-vector.jpg"
+                    alt="Default Picture" width="150" />
+                <% } %>
+            </div>
 
-                <div class="profile-pic">
-                    <% if (user.profilePic) { %>
-                        <img src="<%= user.profilePic %>" alt="Profile Picture" width="150">
-                        <% } else { %>
-                            <img src="https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small_2x/default-avatar-icon-of-social-media-user-vector.jpg"
-                                alt="Default Picture" width="150">
-                            <% } %>
+            <!-- Bio -->
+            <div class="profile-details">
+                <p><strong>Bio:</strong> <%= user.bio || "No bio yet." %></p>
+
+                <!-- Followers / Following -->
+                <p><strong>Followers:</strong> <a href="/users/<%= user._id %>/followers"><%= user.followers.length %></a></p>
+                <p><strong>Following:</strong> <a href="/users/<%= user._id %>/following"><%= user.following.length %></a></p>
+            </div>
+        </section>
+
+        <!-- Follow/Unfollow Button -->
+        <% if (currentUser._id.toString() !== user._id.toString()) { %>
+        <% const isFollowing = currentUser.following.some(id => id.toString() === user._id.toString()); %>
+
+        <form action="/users/<%= isFollowing ? 'unfollow' : 'follow' %>/<%= user._id %>" method="post">
+            <button type="submit"><%= isFollowing ? 'Unfollow' : 'Follow' %></button>
+        </form>
+        <% } %>
+
+        <!-- User Actions -->
+        <div class="user-actions">
+            <% if (currentUser._id.toString() === user._id.toString()) { %>
+            <a href="/users/edit-profile" class="btn-primary">Edit Profile</a>
+            <a href="/auth/logout" class="btn-danger">Logout</a>
+            <form action="/users/delete?_method=DELETE" method="POST" onsubmit="return confirm('Are you sure you want to delete your account?');">
+                <button type="submit" class="btn-danger">Delete Account</button>
+            </form>
+            <% } %>
+        </div>
+
+        <!-- Create New Artwork -->
+        <% if (currentUser._id.toString() === user._id.toString()) { %>
+        <h2>My Artworks</h2>
+        <a href="/artworks/new" class="btn-primary">Create New Artwork</a>
+        <% } else { %>
+        <h2><%= user.username %>'s Artworks</h2>
+        <% } %>
+
+        <!-- Artworks Grid -->
+        <% if (myArtworks && myArtworks.length > 0) { %>
+        <div class="artworks-grid">
+            <% myArtworks.forEach(artwork => { %>
+            <div class="artwork-card">
+                <a href="/artworks/<%= artwork._id %>">
+                    <img src="<%= artwork.image %>" alt="<%= artwork.title %>" class="artwork-img" />
+                </a>
+                <div class="artwork-info">
+                    <p class="artwork-title"><%= artwork.title %></p>
                 </div>
 
-                <!-- Bio -->
-                <div class="profile-details">
-                    <p><strong>Bio:</strong>
-                        <%= user.bio || "No bio yet." %>
-                    </p>
-
-                    <!-- Followers / Following -->
-                    <p><strong>Followers:</strong>
-                        <a href="/users/<%=user._id%>/followers">
-                            <%= user.followers.length %>
-                        </a>
-                    </p>
-                    <p><strong>Following:</strong>
-                        <a href="/users/<%=user._id%>/following">
-                            <%= user.following.length %>
-                        </a>
-                    </p>
-
-                </div>
-            </section>
-
-
-            <!-- Follow/Unfollow Button -->
-            <% if (currentUser._id.toString() !==user._id.toString()) { %>
-
-                <% const isFollowing=currentUser.following.some(id=> id.toString()=== user._id.toString()) %>
-
-                    <form action="/users/<%=isFollowing ?'unfollow' : 'follow'%>/<%=user._id%>" method="post">
-                        <button type="submit">
-                            <%=isFollowing ? 'Unfollow' : 'Follow' %>
-                        </button>
-
+                <% if (currentUser._id.toString() === user._id.toString()) { %>
+                <div class="artwork-actions">
+                    <a href="/artworks/<%= artwork._id %>/edit" class="btn-secondary">Edit</a>
+                    <form action="/artworks/<%= artwork._id %>?_method=DELETE" method="POST" style="display:inline;"
+                        onsubmit="return confirm('Are you sure you want to delete this artwork?');">
+                        <button type="submit" class="btn-danger">Delete</button>
                     </form>
+                </div>
+                <% } %>
+            </div>
+            <% }) %>
+        </div>
+        <% } else { %>
+        <p><%= currentUser._id.toString() === user._id.toString() ? "You haven't uploaded any artworks yet." : user.username + " hasn’t uploaded any artworks yet." %></p>
+        <% if (currentUser._id.toString() === user._id.toString()) { %>
+        <a href="/artworks/new" class="btn-primary">Upload your first artwork</a>
+        <% } %>
+        <% } %>
 
-                    <%}%>
+    </main>
 
-
-                        <!-- User Actions -->
-                        <div class="user-actions">
-                            <% if (currentUser._id.toString()===user._id.toString()) { %>
-                                <a href="/users/edit-profile" class="btn-primary">Edit Profile</a>
-                                <a href="/auth/logout" class="btn-danger">Logout</a>
-                                <form action="/users/delete?_method=DELETE" method="POST"
-                                    onsubmit="return confirm('Are you sure you want to delete your account?');">
-                                    <button type="submit" class="btn-danger">Delete Account</button>
-                                </form>
-                                <% } %>
-                        </div>
-
-
-
-
-                        <!-- Create New Artwork -->
-                        <% if (currentUser._id.toString()===user._id.toString()) { %>
-                            <h2>My Artworks</h2>
-                            <a href="/artworks/new" class="btn-primary">Create New Artwork</a>
-
-
-                            <!-- My Artworks -->
-                            <% if (myArtworks && myArtworks.length> 0) { %>
-                                <% myArtworks.forEach(artwork=> { %>
-                                    <div class="artwork-item">
-
-                                        <h3>
-                                            <%= artwork.title %>
-                                        </h3>
-
-                                        <a href="/artworks/<%= artwork._id %>">
-                                            <img src="<%= artwork.image %>" alt="<%= artwork.title %>"
-                                                class="artwork-thumb">
-                                        </a>
-
-
-                                        <!-- Edit and Delete Buttons -->
-                                        <div class="artwork-action">
-                                            <a href="/artworks/<%= artwork._id %>/edit">Edit</a>
-
-                                            <form action="/artworks/<%= artwork._id %>?_method=DELETE" method="POST"
-                                                style="display:inline;"
-                                                onsubmit="return confirm('Are you sure by deleting this artwork?')">
-                                                <button type="submit">Delete</button>
-                                            </form>
-                                        </div>
-                                        <hr>
-                                    </div>
-
-                                    <% }) %>
-                                        <% } else { %>
-                                            <p>You haven't uploaded any artworks yet.</p>
-                                            <a href="/artworks/new" class="btn-primary">Upload your first artwork</a>
-                                            <% } %>
-
-
-                                                <% } else { %>
-                                                    <h2>
-                                                        <%= user.username %>'s Artworks
-                                                    </h2>
-
-                                                    <% if (myArtworks && myArtworks.length> 0) { %>
-                                                        <% myArtworks.forEach(artwork=> { %>
-                                                            <div class="artwork-item">
-                                                                <h3>
-                                                                    <%= artwork.title %>
-                                                                </h3>
-                                                                <a href="/artworks/<%= artwork._id %>">
-                                                                    <img src="<%= artwork.image %>"
-                                                                        alt="<%= artwork.title %>"
-                                                                        class="artwork-thumb">
-                                                                </a>
-                                                                <hr>
-                                                            </div>
-                                                            <% }) %>
-                                                                <% } else { %>
-                                                                    <p>
-                                                                        <%= user.username %> hasn’t uploaded any
-                                                                            artworks yet.
-                                                                    </p>
-                                                                    <% } %>
-
-                                                                        <% } %>
-
-
-        </main>
-
-        <%- include('../partials/footer') %>
+    <%- include('../partials/footer') %>
 
 </body>
 
