@@ -28,6 +28,12 @@ body {
     padding: 20px;
 }
 
+.auth-container {
+    max-width: 600px; 
+    margin: 40px auto; 
+    padding: 30px; 
+}
+
 /* Homepage Background Image */
 .container-home-page {
     background-image: url("../Art Collage Wallpaper Laptop.jpeg");
@@ -175,6 +181,12 @@ footer {
 }
 
 
+/* .auth-btn {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 15px;
+} */
+
 /* ---------- Forms ---------- */
 form {
     margin-top: 15px;
@@ -201,6 +213,7 @@ textarea {
     border: 2px solid #ccc;
     border-radius: var(--border-radius);
     font-size: 15px;
+    margin-bottom: 10px;
 }
 
 /* ---------- Artworks Grid ---------- */
@@ -254,6 +267,16 @@ textarea {
   color: var(--primary-color);
 }
 
+.auth-link{
+  text-decoration: none;
+  color: var(--primary-color);
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.auth-link:hover{
+ color: darkgoldenrod; 
+}
 
 /* Followers & Following List */
 .user-avatar {
@@ -276,7 +299,7 @@ body.dark nav a {
     color: #fff;
 }
 body.dark nav a:hover {
-    color: var(--primary-color);
+    color: skyblue;
 }
 body.dark footer {
     background: #1e1e1e;
@@ -288,6 +311,9 @@ body.dark .artwork-card {
     background: #1e1e1e;
     color: #fff;
     border: 1px solid #333;
+    box-shadow:  0 4px 10px rgba(167, 165, 165, 0.2);
+
+
 }
 body.dark input[type="text"],
 body.dark input[type="email"],
@@ -296,7 +322,7 @@ body.dark input[type="file"],
 body.dark textarea {
     background: #1e1e1e;
     color: #fff;
-    border: 2px solid #333;
+    border: 2px solid #585858;
 }
 body.dark .btn-secondary {
     background: #333;
@@ -308,6 +334,7 @@ body.dark .btn-primary {
 }
 body.dark .btn-primary:hover {
     background: #2980b9;
+    color: #fff;
 }
 
 body.dark .btn-secondary {
@@ -338,4 +365,15 @@ body.dark .f {
      box-shadow: none;
      background: none;
      border: none;
+}
+
+body.dark .auth-link{
+  text-decoration: none;
+  color:rgb(72, 172, 211);
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+body.dark .auth-link:hover{
+ color: rgb(2, 122, 173); 
 }

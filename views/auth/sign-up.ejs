@@ -14,7 +14,7 @@
 
     <main class="auth-container">
 
-    <h1 class="auth-container">Create an Account</h1>
+    <h1 class="page-title">Create an Account</h1>
     <% if (error) { %>
         <p class="error-message"><%= error %></p>
     <% } %>
@@ -36,13 +36,17 @@
             <label for="password">Password:</label><br>
             <input type="password" id="password" name="password" placeholder="Enter password" required>
         </div>
-        <br>
-
-        <button type="submit" class="btn-primary">Sign Up</button>
+        
+         <div class="auth-btn">
+        <button type="submit" class="btn-primary sign-up">Sign Up</button>
+        </div>
         
     </form>
 
-    <p class="form-footer">Already have an account? <a href="/auth/login">Login here</a></p>
+    <p class="form-footer">Already have an account? <a href="/auth/login" class="auth-link">Login here</a>
+    </p>
+
+    </main>
 
     <%- include('../partials/footer') %>
 
