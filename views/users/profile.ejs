@@ -53,7 +53,7 @@
         <div class="user-actions">
             <% if (currentUser._id.toString() === user._id.toString()) { %>
             <a href="/users/edit-profile" class="btn-primary">Edit Profile</a>
-            <a href="/auth/logout" class="btn-danger">Logout</a>
+
             <form class="delete" action="/users/delete?_method=DELETE" method="POST" onsubmit="return confirm('Are you sure you want to delete your account?');">
                 <button type="submit" class="btn-danger">Delete Account</button>
             </form>
@@ -100,6 +100,8 @@
         <a href="/artworks/new" class="btn-primary">Upload your first artwork</a>
         <% } %>
         <% } %>
+
+        <a href="javascript:history.back()" class="btn-secondary">⬅ Go Back</a>
 
     </main>
 

@@ -25,7 +25,7 @@ body {
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 35px;
 }
 
 .auth-container {
@@ -80,6 +80,19 @@ body {
     font-size: 1.6rem;
     font-style: italic;
 }
+
+/* Artwork details page */
+.artwork-image {
+    max-width: 800px;
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto 20px 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+
 
 
 /* ---------- Navbar ---------- */
@@ -165,6 +178,7 @@ footer {
 .btn-secondary {
     background: #e0e0e0;
     color: #333;
+    margin-top: 15px;
 }
 .btn-secondary:hover {
     background: #ccc;
@@ -173,6 +187,7 @@ footer {
 .btn-danger {
     background: var(--danger-color);
     color: #fff;
+    margin-bottom: 10px;
    
 }
 .btn-danger:hover {
@@ -187,6 +202,49 @@ footer {
     margin-top: 15px;
 } */
 
+/* .btn-like {
+    background-color: rgb(241, 241, 241);
+    border: 2px solid black;
+    padding: 8px 16px;
+    border-radius: 20px;
+    color: black;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+
+.btn-like:hover {
+    background-color: var(--primary);
+    color: #202020;
+    transform: scale(1.05);
+} */
+
+.btn-like {
+    background-color: var(--primary-color);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 30px;
+    color: var(--bg-light);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: bold;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    display: inline-flex;
+}
+
+
+.btn-like:hover {
+    background-color: var(--bg-light);
+    color: var(--primary-color);
+    transform: scale(1.05);
+}
+
+
+
 /* ---------- Forms ---------- */
 form {
     margin-top: 15px;
@@ -196,7 +254,9 @@ form {
     box-shadow: var(--shadow);
 }
 
-.delete,.f{
+.delete,
+.f,
+.like {
      padding: 0px;
      box-shadow: none;
      background: none;
@@ -256,27 +316,32 @@ textarea {
     border: 3px solid #ddd;
 }
 
-/* Minimal style */
-.profile-stat-link {
+
+.profile-stat-link,
+.user-link {
   text-decoration: none;
   color: inherit;
   font-weight: bold;
   transition: color 0.3s ease;
 }
-.profile-stat-link:hover {
+.profile-stat-link:hover,
+.user-link:hover {
   color: var(--primary-color);
 }
 
-.auth-link{
+.auth-link,
+.artwork-artist{
   text-decoration: none;
   color: var(--primary-color);
   font-weight: bold;
   transition: color 0.3s ease;
 }
 
-.auth-link:hover{
+.auth-link:hover,
+.artwork-artist:hover {
  color: darkgoldenrod; 
 }
+
 
 /* Followers & Following List */
 .user-avatar {
@@ -329,7 +394,7 @@ body.dark .btn-secondary {
     color: #fff;
 }
 body.dark .btn-primary {
-    background: #3498db; 
+    background: #2ca6da; 
     color: #fff;
 }
 body.dark .btn-primary:hover {
@@ -354,26 +419,49 @@ body.dark .btn-danger {
 body.dark .btn-danger:hover {
     background: #a93226;
 }
-body.dark .comments-section {
-    background: #222;
-    border: 2px solid #333;
-}
+
 
 body.dark .delete,
-body.dark .f {
+body.dark .f,
+body.dark .like {
      padding: 0px;
      box-shadow: none;
      background: none;
      border: none;
 }
 
-body.dark .auth-link{
+body.dark .auth-link,
+body.dark .artwork-artist{
   text-decoration: none;
   color:rgb(72, 172, 211);
   font-weight: bold;
   transition: color 0.3s ease;
 }
 
-body.dark .auth-link:hover{
+body.dark .auth-link:hover,
+body.dark .artwork-artist:hover{
  color: rgb(2, 122, 173); 
 }
+
+
+body.dark .btn-like {
+    background-color: rgb(51, 180, 231);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 30px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 15px;
+    box-shadow: 0 2px 6px rgba(214, 213, 213, 0.795);
+    align-items: center;
+    font-weight: 500;
+}
+
+
+body.dark .btn-like:hover {
+    background-color: rgb(11, 129, 175);
+    color: white;
+    transform: scale(1.05);
+}
+

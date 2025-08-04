@@ -14,20 +14,20 @@
 
     <main class="container artwork-details-page">
         <div class="artwork-details">
-            <div class="artwork-image">
-                <img src="<%= foundArtwork.image %>" alt="<%= foundArtwork.title %>">
+            <div >
+                <img src="<%= foundArtwork.image %>" alt="<%= foundArtwork.title %>"class="artwork-image">
             </div>
             <div class="artwork-meta">
                 <h1><%= foundArtwork.title %></h1>
                 <p><%= foundArtwork.description %></p>
                 <p>Artist: 
-                    <a href="/users/<%= foundArtwork.artist._id %>">
+                    <a class="artwork-artist" href="/users/<%= foundArtwork.artist._id %>">
                         <%= foundArtwork.artist.username %>
                     </a>
                 </p>
 
                 <!-- Like Button -->
-                <form action="/artworks/<%= foundArtwork._id %>/like" method="POST">
+                <form class="like" action="/artworks/<%= foundArtwork._id %>/like" method="POST">
                     <button type="submit" class="btn-like">
                         <% if (foundArtwork.likes.includes(user._id)) { %>
                             ❤️ Unlike
@@ -58,8 +58,9 @@
                     <textarea name="content" placeholder="Add a comment..." required></textarea>
                     <button type="submit" class="btn-primary">Add Comment</button>
                 </form>
-
+              
                 <a href="javascript:history.back()" class="btn-secondary">⬅ Go Back</a>
+
             </div>
         </div>
     </main>
