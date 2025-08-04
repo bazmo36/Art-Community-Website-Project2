@@ -87,6 +87,8 @@ router.delete("/delete", isSignedIn, async (req, res) => {
 
 // Follow a user
 router.post("/follow/:id", isSignedIn, async (req, res) => {
+  try{
+    console.log("Follow Route")
   const currentUser = await User.findById(req.session.user._id)
 
   const targetUser = await User.findById(req.params.id)
@@ -97,12 +99,20 @@ router.post("/follow/:id", isSignedIn, async (req, res) => {
 
     currentUser.following.push(targetUser._id)
 
+    
     await targetUser.save()
     await currentUser.save()
+    
+
 
   }
 
   res.redirect(`/users/${targetUser._id}`)
+  }
+  catch(error){
+    console.log(error)
+  }
+  
 
 })
 
@@ -122,6 +132,8 @@ router.post("/unfollow/:id", isSignedIn, async (req, res) => {
 
   await targetUser.save()
   await currentUser.save()
+  
+
 
   res.redirect(`/users/${targetUser._id}`)
 

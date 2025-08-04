@@ -42,10 +42,10 @@
 
         <!-- Follow/Unfollow Button -->
         <% if (currentUser._id.toString() !== user._id.toString()) { %>
-        <% const isFollowing = currentUser.following.some(id => id.toString() === user._id.toString()); %>
+        <% const isFollowing = currentUser.following.some(id => id._id.toString() === user._id.toString()); %>
 
-        <form action="/users/<%= isFollowing ? 'unfollow' : 'follow' %>/<%= user._id %>" method="post">
-            <button type="submit"><%= isFollowing ? 'Unfollow' : 'Follow' %></button>
+        <form class="f" action="/users/<%= isFollowing ? 'unfollow' : 'follow' %>/<%= user._id %>" method="post">
+            <button class="btn-primary" type="submit"><%= isFollowing ? 'Unfollow' : 'Follow' %></button>
         </form>
         <% } %>
 
@@ -63,7 +63,9 @@
         <!-- Create New Artwork -->
         <% if (currentUser._id.toString() === user._id.toString()) { %>
         <h2>My Artworks</h2>
+        <% if (myArtworks && myArtworks.length > 0) { %>
         <a href="/artworks/new" class="btn-primary">Create New Artwork</a>
+        <% } %>
         <% } else { %>
         <h2><%= user.username %>'s Artworks</h2>
         <% } %>
@@ -83,7 +85,7 @@
                 <% if (currentUser._id.toString() === user._id.toString()) { %>
                 <div class="artwork-actions">
                     <a href="/artworks/<%= artwork._id %>/edit" class="btn-secondary">Edit</a>
-                    <form  class="delete" action="/artworks/<%= artwork._id %>?_method=DELETE" method="POST" style="display:inline;"
+                    <form class="delete"  action="/artworks/<%= artwork._id %>?_method=DELETE" method="POST" style="display:inline;"
                         onsubmit="return confirm('Are you sure you want to delete this artwork?');">
                         <button type="submit" class="btn-danger">Delete</button>
                     </form>

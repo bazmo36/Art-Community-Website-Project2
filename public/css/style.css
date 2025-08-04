@@ -37,6 +37,7 @@ body {
     color: #ffffff;
     padding: 20px;
     position: relative;
+    height: 500px;
 }
 .container-home-page::before {
     content: "";
@@ -44,13 +45,36 @@ body {
     top: 0; left: 0;
     width: 100%; 
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.4); 
+    background-color: rgba(0, 0, 0, 0.6); 
     z-index: 0;
 }
 .container-home-page > * {
     position: relative;
     z-index: 1;
 }
+
+.welcome-text{
+   display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+}
+
+.welcome-text h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.welcome-text p {
+    font-size: 1.6rem;
+    font-style: italic;
+}
+
 
 /* ---------- Navbar ---------- */
 nav {
@@ -96,10 +120,13 @@ footer {
     text-align: center;
     padding: 15px;
     background: #f1f1f1;
-    margin-top: 40px;
+    /* margin-top: 40px; */
     font-size: 14px;
     color: #555;
     border-top: 1px solid #ddd;
+    /* position:fixed;
+    bottom: 0; */
+    width: 100%;
 }
 
 
@@ -119,6 +146,7 @@ footer {
     transition: background var(--transition), transform var(--transition);
 }
 .btn-primary {
+    margin-top: 4px;
     background: var(--primary-color);
     color: #fff;
  
@@ -126,6 +154,7 @@ footer {
 .btn-primary:hover {
     background: #f0d644;
     transform: scale(1.05);
+    color: #fff;
 }
 .btn-secondary {
     background: #e0e0e0;
@@ -155,8 +184,8 @@ form {
     box-shadow: var(--shadow);
 }
 
-.delete{
-    padding: 0px;
+.delete,.f{
+     padding: 0px;
      box-shadow: none;
      background: none;
 
@@ -303,3 +332,10 @@ body.dark .comments-section {
     border: 2px solid #333;
 }
 
+body.dark .delete,
+body.dark .f {
+     padding: 0px;
+     box-shadow: none;
+     background: none;
+     border: none;
+}

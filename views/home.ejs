@@ -11,24 +11,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Playwrite+AU+QLD:wght@100..400&display=swap" rel="stylesheet">
 </head>
 
-<body class="light">
+<body class="light homepage-image">
 
     <%- include('./partials/navbar') %>
 
         <main class="container-home-page">
-            <h1>Welcome to Art Platform</h1>
-            <% if (user) { %>
-                <p>Hello, <strong>
-                        <%= user.username %>
-                    </strong>!</p>
-
-                <% } else { %>
-                    <p>Join our community of artists and share your creativity.</p>
-                    <div class="home-actions">
-                        <a href="/auth/login" class="btn-primary">Login</a>
-                        <a href="/auth/sign-up" class="btn-secondary">Sign Up</a>
-                    </div>
-                    <% } %>
+            <div class="welcome-text">
+                <h1>Welcome to Art Platform</h1>
+                <p>Hello, <strong><%= currentUser.username %></strong>!</p>
+            </div>
         </main>
 
         <%- include('./partials/footer') %>
