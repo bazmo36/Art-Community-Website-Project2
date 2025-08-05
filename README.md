@@ -76,19 +76,19 @@ The application implements **full CRUD functionality** across different features
 ## 📸 Screenshots
 
 ### Sign-up
-![Sign-up](public\assets\sign-up page.png)
+![Sign-up](public\assets\sign-up-page.png)
 
 ### Login
-![Login](public\assets\login-page.png)
+![Login](assets\login-page.png)
 
 ### Homepage
-![Homepage](public\assets\homepage.png)
+![Homepage](assets\homepage.png)
 
 ### Profile Page
-![Profile Page](public\assets\profile.png)
+![Profile Page](assets\profile.png)
 
 ### Explore Page
-![Explore Page](public\assets\explor-page.png)
+![Explore Page](assets\explor-page.png)
 
 ### Dark Mode
 ![Dark Mode](public\assets\dark-mode.png)
