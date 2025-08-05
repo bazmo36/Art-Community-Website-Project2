@@ -76,7 +76,7 @@ The application implements **full CRUD functionality** across different features
 ## 📸 Screenshots
 
 ### Sign-up
-![Sign-up](public\assets\sign-up-page.png)
+![Sign-up](/public/assets/sign-up-page.png)
 
 ### Login
 ![Login](/public/assets/login-page.png)
