@@ -61,7 +61,7 @@ The application implements **full CRUD functionality** across different features
   - Circular profile picture (Instagram style)
   - Grid layout for artworks
 - **Explore Page**:
-  - 3-column responsive grid like Instagram
+  - column responsive grid like Instagram
 - **Followers & Following Pages**:
   - Modern list with avatar thumbnails
 - **Buttons**:
@@ -73,6 +73,23 @@ The application implements **full CRUD functionality** across different features
 
 ---
 
-## 📸 Screenshots 
+## 📸 Screenshots
 
+### Sign-up
+![Sign-up](public\assets\sign-up page.png)
+
+### Login
+![Login](public\assets\login-page.png)
+
+### Homepage
+![Homepage](public\assets\homepage.png)
+
+### Profile Page
+![Profile Page](public\assets\profile.png)
+
+### Explore Page
+![Explore Page](public\assets\explor-page.png)
+
+### Dark Mode
+![Dark Mode](public\assets\dark-mode.png)
 
