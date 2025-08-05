@@ -34,25 +34,13 @@
                 <img src="<%= artwork.image %>" alt="<%= artwork.title %>" class="preview-img">
             </div>
 
-            <!-- Upload New Image -->
-            <div class="form-group">
-                <label for="image">Upload New Image (optional):</label>
-                <input type="file" id="image" name="image" accept="image/*" onchange="previewImage(event)">
-            </div>
-
-            <!-- New Image Preview -->
-            <div id="new-image-preview" class="form-group hidden">
-                <p>New Image Preview:</p>
-                <img id="preview" class="preview-img" alt="New Image Preview">
-            </div>
-
             <button type="submit" class="btn-primary">Update Artwork</button>
         </form>
 
         <hr>
 
         <!-- Delete Artwork -->
-        <form action="/artworks/<%= artwork._id %>?_method=DELETE" method="POST" onsubmit="return confirm('Are you sure you want to delete this artwork?');">
+        <form class="delete" action="/artworks/<%= artwork._id %>?_method=DELETE" method="POST" onsubmit="return confirm('Are you sure you want to delete this artwork?');">
             <button type="submit" class="btn-danger">Delete Artwork</button>
         </form>
 
@@ -60,20 +48,6 @@
 
     <%- include('../partials/footer') %>
 
-    <script>
-        function previewImage(event) {
-            const file = event.target.files[0];
-            const previewContainer = document.getElementById('new-image-preview');
-            const previewImg = document.getElementById('preview');
-
-            if (file) {
-                previewContainer.classList.remove('hidden');
-                previewImg.src = URL.createObjectURL(file);
-            } else {
-                previewContainer.classList.add('hidden');
-                previewImg.src = '';
-            }
-        }
-    </script>
+      
 </body>
 </html>

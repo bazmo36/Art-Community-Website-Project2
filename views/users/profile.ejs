@@ -97,7 +97,7 @@
         <% } else { %>
         <p><%= currentUser._id.toString() === user._id.toString() ? "You haven't uploaded any artworks yet." : user.username + " hasn’t uploaded any artworks yet." %></p>
         <% if (currentUser._id.toString() === user._id.toString()) { %>
-        <a href="/artworks/new" class="btn-primary">Upload your first artwork</a>
+        <a href="/artworks/new" class="btn-primary">Upload your first artwork</a> <br>
         <% } %>
         <% } %>
 

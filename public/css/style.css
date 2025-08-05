@@ -36,7 +36,7 @@ body {
 
 /* Homepage Background Image */
 .container-home-page {
-    background-image: url("../Art Collage Wallpaper Laptop.jpeg");
+    background-image: url("../assets/Art\ Collage\ Wallpaper\ Laptop.jpeg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -90,6 +90,18 @@ body {
     margin: 0 auto 20px 10px;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Edit Artwork page */
+.preview-img {
+    max-width: 100%;
+    max-height: 500px; /* or any height you prefer */
+    object-fit: contain;
+    height: auto;
+    display: block;
+    margin-top: 10px;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
 }
 
 
